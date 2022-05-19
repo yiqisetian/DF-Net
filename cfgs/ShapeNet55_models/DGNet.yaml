@@ -1,0 +1,46 @@
+optimizer: {
+  type: Adam,
+  kwargs: {
+  lr : 0.0001,
+  weight_decay : 0.001
+}}
+
+scheduler: {
+  type: StepLR,
+  kwargs: {
+  step_size: 40,
+  gamma: 0.2
+}}
+bnmscheduler: {
+  type: Lambda,
+  kwargs: {
+  decay_step: 21,
+  bn_decay: 0.5,
+  bn_momentum: 0.9,
+  lowest_decay: 0.01
+}}
+
+dataset : {
+  train : { _base_: cfgs/dataset_configs/ShapeNet-55.yaml,
+            others: {subset: 'train'}},
+  val : { _base_: cfgs/dataset_configs/ShapeNet-55.yaml,
+            others: {subset: 'test'}},
+  test : { _base_: cfgs/dataset_configs/ShapeNet-55.yaml,
+            others: {subset: 'test'}}}
+GnetModel : {
+  NAME: DGGnet,
+  num_scales: 3,
+  each_scales_size: 1,
+  point_scales_list: [2048,1024,512],
+  crop_point_num: 512
+}
+DnetModel : {
+  NAME: PFDnet,
+  crop_point_num: 512
+}
+
+total_bs : 36
+step_per_update : 1
+max_epoch : 201
+wtl2: 0.95
+consider_metric: CDL2

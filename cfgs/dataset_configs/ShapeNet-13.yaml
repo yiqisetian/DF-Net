@@ -1,0 +1,6 @@
+NAME: ShapeNet
+DATA_PATH: data/ShapeNet16/shapenet13
+N_POINTS: 2048
+PC_PATH: data/ShapeNet16/shapenet_pc
+DEBUG: False
+SampleName: 03797390-7223820f07fd6b55e453535335057818.pts
